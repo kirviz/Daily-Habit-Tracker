@@ -29,21 +29,30 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List($habits) { $habit in
-                Button {
-                    habit.isCompleted.toggle()
-                } label: {
-                    HStack {
-                        Image(systemName: habit.isCompleted ? "checkmark.square.fill" : "square")
-                            .foregroundStyle(habit.isCompleted ? AppStyle.completedCheckbox : AppStyle.incompleteCheckbox)
-
-                        Text(habit.name)
-                            .foregroundStyle(AppStyle.habitName)
-                    }
-                }
-                .buttonStyle(.plain)
+                HabitRow(name: habit.name, isCompleted: $habit.isCompleted)
             }
             .navigationTitle("Daily Habits")
         }
+    }
+}
+
+private struct HabitRow: View {
+    let name: String
+    @Binding var isCompleted: Bool
+
+    var body: some View {
+        Button {
+            isCompleted.toggle()
+        } label: {
+            HStack {
+                Image(systemName: isCompleted ? "checkmark.square.fill" : "square")
+                    .foregroundStyle(isCompleted ? AppStyle.completedCheckbox : AppStyle.incompleteCheckbox)
+
+                Text(name)
+                    .foregroundStyle(AppStyle.habitName)
+            }
+        }
+        .buttonStyle(.plain)
     }
 }
 

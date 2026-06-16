@@ -25,6 +25,7 @@ struct ContentView: View {
         Habit(name: "Meditation"),
         Habit(name: "Gym")
     ]
+    @State private var isShowingAddHabit = false
 
     var body: some View {
         NavigationStack {
@@ -32,6 +33,20 @@ struct ContentView: View {
                 HabitRow(name: habit.name, isCompleted: $habit.isCompleted)
             }
             .navigationTitle("Daily Habits")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isShowingAddHabit = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $isShowingAddHabit) {
+                AddHabitView { habitName in
+                    habits.append(Habit(name: habitName))
+                }
+            }
         }
     }
 }
@@ -53,6 +68,51 @@ private struct HabitRow: View {
             }
         }
         .buttonStyle(.plain)
+    }
+}
+
+private struct AddHabitView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var habitName = ""
+    @FocusState private var isHabitNameFocused: Bool
+
+    let onSave: (String) -> Void
+
+    private var trimmedHabitName: String {
+        habitName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private func saveHabit() {
+        guard !trimmedHabitName.isEmpty else { return }
+
+        onSave(trimmedHabitName)
+        dismiss()
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                TextField("Habit name", text: $habitName)
+                    .focused($isHabitNameFocused)
+                    .onSubmit(saveHabit)
+            }
+            .navigationTitle("New Habit")
+            .onAppear {
+                isHabitNameFocused = true
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save", action: saveHabit)
+                        .disabled(trimmedHabitName.isEmpty)
+                }
+            }
+        }
     }
 }
 

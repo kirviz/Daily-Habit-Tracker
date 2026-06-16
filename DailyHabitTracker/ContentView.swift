@@ -14,31 +14,26 @@ enum AppStyle {
 }
 
 struct ContentView: View {
-    @State private var habits = [
-        Habit(name: "Walk"),
-        Habit(name: "Meditation"),
-        Habit(name: "Gym")
-    ]
-    @State private var isShowingAddHabit = false
+    @State private var viewModel = HabitListViewModel()
 
     var body: some View {
         NavigationStack {
-            List($habits) { $habit in
+            List($viewModel.habits) { $habit in
                 HabitRowView(name: habit.name, isCompleted: $habit.isCompleted)
             }
             .navigationTitle("Daily Habits")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        isShowingAddHabit = true
+                        viewModel.isShowingAddHabit = true
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
-            .sheet(isPresented: $isShowingAddHabit) {
+            .sheet(isPresented: $viewModel.isShowingAddHabit) {
                 AddHabitView { habitName in
-                    habits.append(Habit(name: habitName))
+                    viewModel.addHabit(named: habitName)
                 }
             }
         }

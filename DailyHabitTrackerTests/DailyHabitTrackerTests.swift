@@ -10,10 +10,27 @@ import Testing
 
 struct DailyHabitTrackerTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        // Swift Testing Documentation
-        // https://developer.apple.com/documentation/testing
+    @Test func initializesWithDefaultHabits() {
+        let viewModel = HabitListViewModel()
+
+        #expect(viewModel.habits.map(\.name) == ["Walk", "Meditation", "Gym"])
+        #expect(viewModel.isShowingAddHabit == false)
+    }
+
+    @Test func addHabitAppendsTrimmedName() {
+        let viewModel = HabitListViewModel(habits: [])
+
+        viewModel.addHabit(named: "  Read  ")
+
+        #expect(viewModel.habits.map(\.name) == ["Read"])
+    }
+
+    @Test func addHabitIgnoresEmptyName() {
+        let viewModel = HabitListViewModel(habits: [])
+
+        viewModel.addHabit(named: "   \n")
+
+        #expect(viewModel.habits.isEmpty)
     }
 
 }

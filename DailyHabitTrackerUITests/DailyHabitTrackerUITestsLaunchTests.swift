@@ -1,13 +1,13 @@
 //
-//  Daily_Habit_TrackerUITestsLaunchTests.swift
-//  Daily Habit TrackerUITests
+//  DailyHabitTrackerUITestsLaunchTests.swift
+//  DailyHabitTrackerUITests
 //
 //  Created by Darius on 16/06/2026.
 //
 
 import XCTest
 
-final class Daily_Habit_TrackerUITestsLaunchTests: XCTestCase {
+final class DailyHabitTrackerUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

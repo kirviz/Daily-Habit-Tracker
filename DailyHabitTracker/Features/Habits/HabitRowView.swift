@@ -1,6 +1,6 @@
 //
 //  HabitRowView.swift
-//  Daily Habit Tracker
+//  DailyHabitTracker
 //
 //  Created by Darius on 16/06/2026.
 //

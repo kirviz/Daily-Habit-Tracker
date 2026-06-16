@@ -1,6 +1,6 @@
 //
-//  Daily_Habit_TrackerApp.swift
-//  Daily Habit Tracker
+//  DailyHabitTrackerApp.swift
+//  DailyHabitTracker
 //
 //  Created by Darius on 16/06/2026.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Daily_Habit_TrackerApp: App {
+struct DailyHabitTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

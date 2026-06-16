@@ -1,14 +1,14 @@
 //
-//  Daily_Habit_TrackerTests.swift
-//  Daily Habit TrackerTests
+//  DailyHabitTrackerTests.swift
+//  DailyHabitTrackerTests
 //
 //  Created by Darius on 16/06/2026.
 //
 
 import Testing
-@testable import Daily_Habit_Tracker
+@testable import DailyHabitTracker
 
-struct Daily_Habit_TrackerTests {
+struct DailyHabitTrackerTests {
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.

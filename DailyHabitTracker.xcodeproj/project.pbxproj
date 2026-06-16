@@ -12,37 +12,37 @@
 			containerPortal = 77FA47202FE13F680035D5FC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 77FA47272FE13F680035D5FC;
-			remoteInfo = "Daily Habit Tracker";
+			remoteInfo = "DailyHabitTracker";
 		};
 		77FA47402FE13F6B0035D5FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77FA47202FE13F680035D5FC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 77FA47272FE13F680035D5FC;
-			remoteInfo = "Daily Habit Tracker";
+			remoteInfo = "DailyHabitTracker";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		77FA47282FE13F680035D5FC /* Daily Habit Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Daily Habit Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77FA47352FE13F6B0035D5FC /* Daily Habit TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Daily Habit TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77FA473F2FE13F6B0035D5FC /* Daily Habit TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Daily Habit TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA47282FE13F680035D5FC /* DailyHabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DailyHabitTracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA47352FE13F6B0035D5FC /* DailyHabitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DailyHabitTrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FA473F2FE13F6B0035D5FC /* DailyHabitTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DailyHabitTrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		77FA472A2FE13F680035D5FC /* Daily Habit Tracker */ = {
+		77FA472A2FE13F680035D5FC /* DailyHabitTracker */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Daily Habit Tracker";
+			path = "DailyHabitTracker";
 			sourceTree = "<group>";
 		};
-		77FA47382FE13F6B0035D5FC /* Daily Habit TrackerTests */ = {
+		77FA47382FE13F6B0035D5FC /* DailyHabitTrackerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Daily Habit TrackerTests";
+			path = "DailyHabitTrackerTests";
 			sourceTree = "<group>";
 		};
-		77FA47422FE13F6B0035D5FC /* Daily Habit TrackerUITests */ = {
+		77FA47422FE13F6B0035D5FC /* DailyHabitTrackerUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Daily Habit TrackerUITests";
+			path = "DailyHabitTrackerUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		77FA471F2FE13F680035D5FC = {
 			isa = PBXGroup;
 			children = (
-				77FA472A2FE13F680035D5FC /* Daily Habit Tracker */,
-				77FA47382FE13F6B0035D5FC /* Daily Habit TrackerTests */,
-				77FA47422FE13F6B0035D5FC /* Daily Habit TrackerUITests */,
+				77FA472A2FE13F680035D5FC /* DailyHabitTracker */,
+				77FA47382FE13F6B0035D5FC /* DailyHabitTrackerTests */,
+				77FA47422FE13F6B0035D5FC /* DailyHabitTrackerUITests */,
 				77FA47292FE13F680035D5FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		77FA47292FE13F680035D5FC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				77FA47282FE13F680035D5FC /* Daily Habit Tracker.app */,
-				77FA47352FE13F6B0035D5FC /* Daily Habit TrackerTests.xctest */,
-				77FA473F2FE13F6B0035D5FC /* Daily Habit TrackerUITests.xctest */,
+				77FA47282FE13F680035D5FC /* DailyHabitTracker.app */,
+				77FA47352FE13F6B0035D5FC /* DailyHabitTrackerTests.xctest */,
+				77FA473F2FE13F6B0035D5FC /* DailyHabitTrackerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		77FA47272FE13F680035D5FC /* Daily Habit Tracker */ = {
+		77FA47272FE13F680035D5FC /* DailyHabitTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77FA47492FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "Daily Habit Tracker" */;
+			buildConfigurationList = 77FA47492FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "DailyHabitTracker" */;
 			buildPhases = (
 				77FA47242FE13F680035D5FC /* Sources */,
 				77FA47252FE13F680035D5FC /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				77FA472A2FE13F680035D5FC /* Daily Habit Tracker */,
+				77FA472A2FE13F680035D5FC /* DailyHabitTracker */,
 			);
-			name = "Daily Habit Tracker";
+			name = "DailyHabitTracker";
 			packageProductDependencies = (
 			);
-			productName = "Daily Habit Tracker";
-			productReference = 77FA47282FE13F680035D5FC /* Daily Habit Tracker.app */;
+			productName = "DailyHabitTracker";
+			productReference = 77FA47282FE13F680035D5FC /* DailyHabitTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		77FA47342FE13F6B0035D5FC /* Daily Habit TrackerTests */ = {
+		77FA47342FE13F6B0035D5FC /* DailyHabitTrackerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77FA474C2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "Daily Habit TrackerTests" */;
+			buildConfigurationList = 77FA474C2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "DailyHabitTrackerTests" */;
 			buildPhases = (
 				77FA47312FE13F6B0035D5FC /* Sources */,
 				77FA47322FE13F6B0035D5FC /* Frameworks */,
@@ -131,18 +131,18 @@
 				77FA47372FE13F6B0035D5FC /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				77FA47382FE13F6B0035D5FC /* Daily Habit TrackerTests */,
+				77FA47382FE13F6B0035D5FC /* DailyHabitTrackerTests */,
 			);
-			name = "Daily Habit TrackerTests";
+			name = "DailyHabitTrackerTests";
 			packageProductDependencies = (
 			);
-			productName = "Daily Habit TrackerTests";
-			productReference = 77FA47352FE13F6B0035D5FC /* Daily Habit TrackerTests.xctest */;
+			productName = "DailyHabitTrackerTests";
+			productReference = 77FA47352FE13F6B0035D5FC /* DailyHabitTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		77FA473E2FE13F6B0035D5FC /* Daily Habit TrackerUITests */ = {
+		77FA473E2FE13F6B0035D5FC /* DailyHabitTrackerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77FA474F2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "Daily Habit TrackerUITests" */;
+			buildConfigurationList = 77FA474F2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "DailyHabitTrackerUITests" */;
 			buildPhases = (
 				77FA473B2FE13F6B0035D5FC /* Sources */,
 				77FA473C2FE13F6B0035D5FC /* Frameworks */,
@@ -154,13 +154,13 @@
 				77FA47412FE13F6B0035D5FC /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				77FA47422FE13F6B0035D5FC /* Daily Habit TrackerUITests */,
+				77FA47422FE13F6B0035D5FC /* DailyHabitTrackerUITests */,
 			);
-			name = "Daily Habit TrackerUITests";
+			name = "DailyHabitTrackerUITests";
 			packageProductDependencies = (
 			);
-			productName = "Daily Habit TrackerUITests";
-			productReference = 77FA473F2FE13F6B0035D5FC /* Daily Habit TrackerUITests.xctest */;
+			productName = "DailyHabitTrackerUITests";
+			productReference = 77FA473F2FE13F6B0035D5FC /* DailyHabitTrackerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 77FA47232FE13F680035D5FC /* Build configuration list for PBXProject "Daily Habit Tracker" */;
+			buildConfigurationList = 77FA47232FE13F680035D5FC /* Build configuration list for PBXProject "DailyHabitTracker" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				77FA47272FE13F680035D5FC /* Daily Habit Tracker */,
-				77FA47342FE13F6B0035D5FC /* Daily Habit TrackerTests */,
-				77FA473E2FE13F6B0035D5FC /* Daily Habit TrackerUITests */,
+				77FA47272FE13F680035D5FC /* DailyHabitTracker */,
+				77FA47342FE13F6B0035D5FC /* DailyHabitTrackerTests */,
+				77FA473E2FE13F6B0035D5FC /* DailyHabitTrackerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		77FA47372FE13F6B0035D5FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 77FA47272FE13F680035D5FC /* Daily Habit Tracker */;
+			target = 77FA47272FE13F680035D5FC /* DailyHabitTracker */;
 			targetProxy = 77FA47362FE13F6B0035D5FC /* PBXContainerItemProxy */;
 		};
 		77FA47412FE13F6B0035D5FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 77FA47272FE13F680035D5FC /* Daily Habit Tracker */;
+			target = 77FA47272FE13F680035D5FC /* DailyHabitTracker */;
 			targetProxy = 77FA47402FE13F6B0035D5FC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -407,7 +407,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.Daily-Habit-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.DailyHabitTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -438,7 +438,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.Daily-Habit-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.DailyHabitTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -459,7 +459,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.Daily-Habit-TrackerTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.DailyHabitTrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -467,7 +467,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Daily Habit Tracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Daily Habit Tracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyHabitTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailyHabitTracker";
 			};
 			name = Debug;
 		};
@@ -480,7 +480,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.Daily-Habit-TrackerTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.DailyHabitTrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -488,7 +488,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Daily Habit Tracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Daily Habit Tracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyHabitTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailyHabitTracker";
 			};
 			name = Release;
 		};
@@ -499,7 +499,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.Daily-Habit-TrackerUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.DailyHabitTrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -507,7 +507,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Daily Habit Tracker";
+				TEST_TARGET_NAME = "DailyHabitTracker";
 			};
 			name = Debug;
 		};
@@ -518,7 +518,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.Daily-Habit-TrackerUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.energising-peace.DailyHabitTrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -526,14 +526,14 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Daily Habit Tracker";
+				TEST_TARGET_NAME = "DailyHabitTracker";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		77FA47232FE13F680035D5FC /* Build configuration list for PBXProject "Daily Habit Tracker" */ = {
+		77FA47232FE13F680035D5FC /* Build configuration list for PBXProject "DailyHabitTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77FA47472FE13F6B0035D5FC /* Debug */,
@@ -542,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77FA47492FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "Daily Habit Tracker" */ = {
+		77FA47492FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "DailyHabitTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77FA474A2FE13F6B0035D5FC /* Debug */,
@@ -551,7 +551,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77FA474C2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "Daily Habit TrackerTests" */ = {
+		77FA474C2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "DailyHabitTrackerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77FA474D2FE13F6B0035D5FC /* Debug */,
@@ -560,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77FA474F2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "Daily Habit TrackerUITests" */ = {
+		77FA474F2FE13F6B0035D5FC /* Build configuration list for PBXNativeTarget "DailyHabitTrackerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				77FA47502FE13F6B0035D5FC /* Debug */,

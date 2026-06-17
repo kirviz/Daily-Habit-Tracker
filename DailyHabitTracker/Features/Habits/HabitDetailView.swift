@@ -17,20 +17,26 @@ struct HabitDetailView: View {
         List {
             Section("Last 7 Days") {
                 ForEach(viewModel.recentDates(count: dayCount), id: \.self) { date in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(date, format: .dateTime.weekday(.wide))
-                                .font(.body)
+                    Button {
+                        viewModel.toggleCompletion(for: habit, on: date)
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(date, format: .dateTime.weekday(.wide))
+                                    .font(.body)
 
-                            Text(date, format: .dateTime.month().day())
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
+                                Text(date, format: .dateTime.month().day())
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
 
-                        Spacer()
+                            Spacer()
 
-                        completionImage(for: date)
+                            completionImage(for: date)
+                        }.contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(completionToggleAccessibilityLabel(for: date))
                 }
             }
         }
@@ -43,6 +49,14 @@ struct HabitDetailView: View {
         return Image(systemName: isCompleted ? "checkmark.square.fill" : "square")
             .foregroundStyle(isCompleted ? AppStyle.completedCheckbox : AppStyle.incompleteCheckbox)
             .accessibilityLabel(isCompleted ? "Completed" : "Not completed")
+    }
+
+    private func completionToggleAccessibilityLabel(for date: Date) -> String {
+        let isCompleted = viewModel.isCompleted(habit, on: date)
+        let action = isCompleted ? "Mark incomplete" : "Mark complete"
+        let formattedDate = date.formatted(.dateTime.month().day())
+
+        return "\(action) for \(formattedDate)"
     }
 }
 

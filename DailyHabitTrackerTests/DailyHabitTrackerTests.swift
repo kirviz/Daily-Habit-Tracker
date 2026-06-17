@@ -105,6 +105,29 @@ struct DailyHabitTrackerTests {
         ])
     }
 
+    @Test func toggleCompletionMarksHabitCompletedOnPastDate() {
+        let habit = Habit(name: "Read")
+        let yesterday = fixedToday.addingTimeInterval(-86_400)
+        let viewModel = HabitListViewModel(habits: [habit])
+
+        viewModel.toggleCompletion(for: habit, on: yesterday)
+
+        #expect(viewModel.isCompleted(habit, on: yesterday))
+        #expect(viewModel.completions == [HabitCompletion(habitID: habit.id, date: yesterday)])
+    }
+
+    @Test func toggleCompletionTwiceReturnsPastDateToIncomplete() {
+        let habit = Habit(name: "Read")
+        let yesterday = fixedToday.addingTimeInterval(-86_400)
+        let viewModel = HabitListViewModel(habits: [habit])
+
+        viewModel.toggleCompletion(for: habit, on: yesterday)
+        viewModel.toggleCompletion(for: habit, on: yesterday)
+
+        #expect(viewModel.isCompleted(habit, on: yesterday) == false)
+        #expect(viewModel.completions.isEmpty)
+    }
+
     @Test func isCompletedQueriesSpecificPastDate() {
         let habit = Habit(name: "Read")
         var calendar = Calendar(identifier: .gregorian)

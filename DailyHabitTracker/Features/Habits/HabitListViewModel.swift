@@ -65,15 +65,18 @@ final class HabitListViewModel {
     }
 
     func toggleTodayCompletion(for habit: Habit) {
+        toggleCompletion(for: habit, on: today())
+    }
+
+    func toggleCompletion(for habit: Habit, on date: Date) {
         guard habits.contains(where: { $0.id == habit.id }) else { return }
 
-        let completionDate = today()
         if let completionIndex = completions.firstIndex(where: { completion in
-            completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: completionDate)
+            completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: date)
         }) {
             completions.remove(at: completionIndex)
         } else {
-            completions.append(HabitCompletion(habitID: habit.id, date: completionDate))
+            completions.append(HabitCompletion(habitID: habit.id, date: date))
         }
     }
 

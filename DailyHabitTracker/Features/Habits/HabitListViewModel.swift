@@ -36,6 +36,15 @@ final class HabitListViewModel {
         habits.append(Habit(name: trimmedName))
     }
 
+    func deleteHabits(at offsets: IndexSet) {
+        let deletedHabitIDs = Set(offsets.compactMap { index in
+            habits.indices.contains(index) ? habits[index].id : nil
+        })
+
+        habits.removeAll { deletedHabitIDs.contains($0.id) }
+        completions.removeAll { deletedHabitIDs.contains($0.habitID) }
+    }
+
     func isCompletedToday(_ habit: Habit) -> Bool {
         isCompleted(habit, on: today())
     }

@@ -18,14 +18,17 @@ struct HabitListView: View {
 
     var body: some View {
         NavigationStack {
-            List(viewModel.habits) { habit in
-                HabitRowView(
-                    name: habit.name,
-                    isCompleted: viewModel.isCompletedToday(habit),
-                    toggleCompletion: {
-                        viewModel.toggleTodayCompletion(for: habit)
-                    }
-                )
+            List {
+                ForEach(viewModel.habits) { habit in
+                    HabitRowView(
+                        name: habit.name,
+                        isCompleted: viewModel.isCompletedToday(habit),
+                        toggleCompletion: {
+                            viewModel.toggleTodayCompletion(for: habit)
+                        }
+                    )
+                }
+                .onDelete(perform: viewModel.deleteHabits)
             }
             .navigationTitle("Daily Habits")
             .toolbar {

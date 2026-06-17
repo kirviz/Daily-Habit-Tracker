@@ -46,6 +46,23 @@ struct DailyHabitTrackerTests {
         #expect(viewModel.habits.map(\.name) == ["One", "Two", "Three"])
     }
 
+    @Test func deleteHabitRemovesHabitAndCompletions() {
+        let firstHabit = Habit(name: "Read")
+        let secondHabit = Habit(name: "Walk")
+        let viewModel = HabitListViewModel(
+            habits: [firstHabit, secondHabit],
+            completions: [
+                HabitCompletion(habitID: firstHabit.id, date: fixedToday),
+                HabitCompletion(habitID: secondHabit.id, date: fixedToday)
+            ]
+        )
+
+        viewModel.deleteHabits(at: IndexSet(integer: 0))
+
+        #expect(viewModel.habits.map(\.name) == ["Walk"])
+        #expect(viewModel.completions.map(\.habitID) == [secondHabit.id])
+    }
+
     @Test func toggleTodayCompletionMarksHabitCompletedToday() {
         let habit = Habit(name: "Read")
         let viewModel = HabitListViewModel(habits: [habit], today: { fixedToday })

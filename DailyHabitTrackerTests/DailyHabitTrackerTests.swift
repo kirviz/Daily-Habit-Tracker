@@ -105,4 +105,20 @@ struct DailyHabitTrackerTests {
         ])
     }
 
+    @Test func isCompletedQueriesSpecificPastDate() {
+        let habit = Habit(name: "Read")
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let threeDaysAgo = fixedToday.addingTimeInterval(-259_200)
+        let viewModel = HabitListViewModel(
+            habits: [habit],
+            completions: [HabitCompletion(habitID: habit.id, date: threeDaysAgo)],
+            calendar: calendar,
+            today: { fixedToday }
+        )
+
+        #expect(viewModel.isCompleted(habit, on: threeDaysAgo))
+        #expect(viewModel.isCompleted(habit, on: fixedToday) == false)
+    }
+
 }

@@ -49,6 +49,21 @@ final class HabitListViewModel {
         isCompleted(habit, on: today())
     }
 
+    func isCompleted(_ habit: Habit, on date: Date) -> Bool {
+        completions.contains { completion in
+            completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: date)
+        }
+    }
+
+    func recentDates(count: Int) -> [Date] {
+        guard count > 0 else { return [] }
+
+        let today = calendar.startOfDay(for: today())
+        return (0..<count).compactMap { offset in
+            calendar.date(byAdding: .day, value: -offset, to: today)
+        }
+    }
+
     func toggleTodayCompletion(for habit: Habit) {
         guard habits.contains(where: { $0.id == habit.id }) else { return }
 
@@ -59,12 +74,6 @@ final class HabitListViewModel {
             completions.remove(at: completionIndex)
         } else {
             completions.append(HabitCompletion(habitID: habit.id, date: completionDate))
-        }
-    }
-
-    private func isCompleted(_ habit: Habit, on date: Date) -> Bool {
-        completions.contains { completion in
-            completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: date)
         }
     }
 

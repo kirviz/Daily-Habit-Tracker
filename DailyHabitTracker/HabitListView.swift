@@ -25,6 +25,9 @@ struct HabitListView: View {
                         isCompleted: viewModel.isCompletedToday(habit),
                         toggleCompletion: {
                             viewModel.toggleTodayCompletion(for: habit)
+                        },
+                        destination: {
+                            HabitDetailView(habit: habit, viewModel: viewModel)
                         }
                     )
                 }

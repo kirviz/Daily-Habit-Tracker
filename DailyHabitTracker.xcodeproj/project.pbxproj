@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		77A746AA2FE291A800A687AB /* AllTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 77A746A92FE291A800A687AB /* AllTests.xctestplan */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		77FA47362FE13F6B0035D5FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,9 +28,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		77A746A92FE291A800A687AB /* AllTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllTests.xctestplan; sourceTree = "<group>"; };
 		77FA47282FE13F680035D5FC /* DailyHabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyHabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77FA47352FE13F6B0035D5FC /* DailyHabitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyHabitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77FA473F2FE13F6B0035D5FC /* DailyHabitTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyHabitTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77FB65922FE289E2003D6A1F /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +81,8 @@
 		77FA471F2FE13F680035D5FC = {
 			isa = PBXGroup;
 			children = (
+				77A746A92FE291A800A687AB /* AllTests.xctestplan */,
+				77FB65922FE289E2003D6A1F /* UnitTests.xctestplan */,
 				77FA472A2FE13F680035D5FC /* DailyHabitTracker */,
 				77FA47382FE13F6B0035D5FC /* DailyHabitTrackerTests */,
 				77FA47422FE13F6B0035D5FC /* DailyHabitTrackerUITests */,
@@ -212,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77A746AA2FE291A800A687AB /* AllTests.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

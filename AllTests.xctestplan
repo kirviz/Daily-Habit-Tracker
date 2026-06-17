@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "6EA4A220-A9EE-469F-A5BB-44AB7249AA32",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:DailyHabitTracker.xcodeproj",
+      "identifier" : "77FA47272FE13F680035D5FC",
+      "name" : "DailyHabitTracker"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:DailyHabitTracker.xcodeproj",
+        "identifier" : "77FA47342FE13F6B0035D5FC",
+        "name" : "DailyHabitTrackerTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:DailyHabitTracker.xcodeproj",
+        "identifier" : "77FA473E2FE13F6B0035D5FC",
+        "name" : "DailyHabitTrackerUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

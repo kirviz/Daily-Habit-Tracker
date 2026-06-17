@@ -24,6 +24,12 @@ final class HabitListViewModel {
         habits.append(Habit(name: trimmedName))
     }
 
+    func toggleCompletion(for habit: Habit) {
+        guard let habitIndex = habits.firstIndex(where: { $0.id == habit.id }) else { return }
+
+        habits[habitIndex].isCompleted.toggle()
+    }
+
     private static let defaultHabits = [
         Habit(name: "Walk"),
         Habit(name: "Meditation"),

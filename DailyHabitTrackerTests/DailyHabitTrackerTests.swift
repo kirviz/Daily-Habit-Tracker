@@ -33,4 +33,13 @@ struct DailyHabitTrackerTests {
         #expect(viewModel.habits.isEmpty)
     }
 
+    @Test func toggleCompletionUpdatesMatchingHabit() {
+        let habit = Habit(name: "Read")
+        let viewModel = HabitListViewModel(habits: [habit])
+
+        viewModel.toggleCompletion(for: habit)
+
+        #expect(viewModel.habits[0].isCompleted == true)
+    }
+
 }

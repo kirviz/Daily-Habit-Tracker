@@ -9,11 +9,12 @@ import SwiftUI
 
 struct HabitRowView: View {
     let name: String
-    @Binding var isCompleted: Bool
+    let isCompleted: Bool
+    let toggleCompletion: () -> Void
 
     var body: some View {
         Button {
-            isCompleted.toggle()
+            toggleCompletion()
         } label: {
             HStack {
                 Image(systemName: isCompleted ? "checkmark.square.fill" : "square")

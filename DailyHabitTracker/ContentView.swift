@@ -18,8 +18,14 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            List($viewModel.habits) { $habit in
-                HabitRowView(name: habit.name, isCompleted: $habit.isCompleted)
+            List(viewModel.habits) { habit in
+                HabitRowView(
+                    name: habit.name,
+                    isCompleted: habit.isCompleted,
+                    toggleCompletion: {
+                        viewModel.toggleCompletion(for: habit)
+                    }
+                )
             }
             .navigationTitle("Daily Habits")
             .toolbar {

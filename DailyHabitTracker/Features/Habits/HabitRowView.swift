@@ -41,6 +41,8 @@ struct HabitRowView<Destination: View>: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier("habit-details-\(name)")
+            .accessibilityLabel("Show \(name) details")
         }
     }
 }

@@ -16,7 +16,7 @@ struct HabitDetailView: View {
     var body: some View {
         List {
             Section("Last 7 Days") {
-                ForEach(viewModel.recentDates(count: dayCount), id: \.self) { date in
+                ForEach(Array(viewModel.recentDates(count: dayCount).enumerated()), id: \.element) { index, date in
                     Button {
                         viewModel.toggleCompletion(for: habit, on: date)
                     } label: {
@@ -37,6 +37,8 @@ struct HabitDetailView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(completionToggleAccessibilityLabel(for: date))
+                    .accessibilityIdentifier("habit-history-row-\(index)")
+                    .accessibilityValue(completionAccessibilityValue(for: date))
                 }
             }
         }
@@ -57,6 +59,10 @@ struct HabitDetailView: View {
         let formattedDate = date.formatted(.dateTime.month().day())
 
         return "\(action) for \(formattedDate)"
+    }
+
+    private func completionAccessibilityValue(for date: Date) -> String {
+        viewModel.isCompleted(habit, on: date) ? "Completed" : "Not completed"
     }
 }
 

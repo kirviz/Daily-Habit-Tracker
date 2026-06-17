@@ -5,15 +5,18 @@
 //  Created by Darius on 16/06/2026.
 //
 
+import Foundation
 import Testing
 @testable import DailyHabitTracker
 
 struct DailyHabitTrackerTests {
+    private let fixedToday = Date(timeIntervalSince1970: 1_781_827_200)
 
     @Test func initializesWithDefaultHabits() {
         let viewModel = HabitListViewModel()
 
         #expect(viewModel.habits.map(\.name) == ["Walk", "Meditation", "Gym"])
+        #expect(viewModel.completions.isEmpty)
         #expect(viewModel.isShowingAddHabit == false)
     }
 
@@ -43,23 +46,46 @@ struct DailyHabitTrackerTests {
         #expect(viewModel.habits.map(\.name) == ["One", "Two", "Three"])
     }
 
-    @Test func toggleCompletionUpdatesMatchingHabit() {
+    @Test func toggleTodayCompletionMarksHabitCompletedToday() {
         let habit = Habit(name: "Read")
-        let viewModel = HabitListViewModel(habits: [habit])
+        let viewModel = HabitListViewModel(habits: [habit], today: { fixedToday })
 
-        viewModel.toggleCompletion(for: habit)
+        viewModel.toggleTodayCompletion(for: habit)
 
-        #expect(viewModel.habits[0].isCompleted == true)
+        #expect(viewModel.isCompletedToday(habit))
+        #expect(viewModel.completions.map(\.habitID) == [habit.id])
     }
     
-    @Test func toggleCompletionTwiceReturnsToIncomplete() {
+    @Test func toggleTodayCompletionTwiceReturnsToIncompleteToday() {
         let habit = Habit(name: "Read")
-        let viewModel = HabitListViewModel(habits: [habit])
+        let viewModel = HabitListViewModel(habits: [habit], today: { fixedToday })
 
-        viewModel.toggleCompletion(for: habit)
-        viewModel.toggleCompletion(for: habit)
+        viewModel.toggleTodayCompletion(for: habit)
+        viewModel.toggleTodayCompletion(for: habit)
 
-        #expect(viewModel.habits[0].isCompleted == false)
+        #expect(viewModel.isCompletedToday(habit) == false)
+        #expect(viewModel.completions.isEmpty)
+    }
+
+    @Test func toggleTodayCompletionPreservesPreviousDayCompletion() {
+        let habit = Habit(name: "Read")
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let yesterday = fixedToday.addingTimeInterval(-86_400)
+        let viewModel = HabitListViewModel(
+            habits: [habit],
+            completions: [HabitCompletion(habitID: habit.id, date: yesterday)],
+            calendar: calendar,
+            today: { fixedToday }
+        )
+
+        viewModel.toggleTodayCompletion(for: habit)
+
+        #expect(viewModel.isCompletedToday(habit))
+        #expect(viewModel.completions == [
+            HabitCompletion(habitID: habit.id, date: yesterday),
+            HabitCompletion(habitID: habit.id, date: fixedToday)
+        ])
     }
 
 }

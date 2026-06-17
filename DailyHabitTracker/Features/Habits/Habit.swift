@@ -10,5 +10,9 @@ import Foundation
 struct Habit: Identifiable {
     let id = UUID()
     let name: String
-    var isCompleted = false
+}
+
+struct HabitCompletion: Equatable {
+    let habitID: Habit.ID
+    let date: Date
 }

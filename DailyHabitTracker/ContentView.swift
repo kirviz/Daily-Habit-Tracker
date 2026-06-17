@@ -21,9 +21,9 @@ struct ContentView: View {
             List(viewModel.habits) { habit in
                 HabitRowView(
                     name: habit.name,
-                    isCompleted: habit.isCompleted,
+                    isCompleted: viewModel.isCompletedToday(habit),
                     toggleCompletion: {
-                        viewModel.toggleCompletion(for: habit)
+                        viewModel.toggleTodayCompletion(for: habit)
                     }
                 )
             }

@@ -11,10 +11,22 @@ import Observation
 @Observable
 final class HabitListViewModel {
     var habits: [Habit]
+    var completions: [HabitCompletion]
     var isShowingAddHabit = false
 
-    init(habits: [Habit] = HabitListViewModel.defaultHabits) {
+    private let calendar: Calendar
+    private let today: () -> Date
+
+    init(
+        habits: [Habit] = HabitListViewModel.defaultHabits,
+        completions: [HabitCompletion] = [],
+        calendar: Calendar = .current,
+        today: @escaping () -> Date = Date.init
+    ) {
         self.habits = habits
+        self.completions = completions
+        self.calendar = calendar
+        self.today = today
     }
 
     func addHabit(named name: String) {
@@ -24,10 +36,27 @@ final class HabitListViewModel {
         habits.append(Habit(name: trimmedName))
     }
 
-    func toggleCompletion(for habit: Habit) {
-        guard let habitIndex = habits.firstIndex(where: { $0.id == habit.id }) else { return }
+    func isCompletedToday(_ habit: Habit) -> Bool {
+        isCompleted(habit, on: today())
+    }
 
-        habits[habitIndex].isCompleted.toggle()
+    func toggleTodayCompletion(for habit: Habit) {
+        guard habits.contains(where: { $0.id == habit.id }) else { return }
+
+        let completionDate = today()
+        if let completionIndex = completions.firstIndex(where: { completion in
+            completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: completionDate)
+        }) {
+            completions.remove(at: completionIndex)
+        } else {
+            completions.append(HabitCompletion(habitID: habit.id, date: completionDate))
+        }
+    }
+
+    private func isCompleted(_ habit: Habit, on date: Date) -> Bool {
+        completions.contains { completion in
+            completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: date)
+        }
     }
 
     private static let defaultHabits = [

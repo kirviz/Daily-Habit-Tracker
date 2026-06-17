@@ -11,7 +11,7 @@ import SwiftUI
 struct DailyHabitTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HabitListView()
         }
     }
 }

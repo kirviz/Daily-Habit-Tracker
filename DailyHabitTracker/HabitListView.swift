@@ -13,7 +13,7 @@ enum AppStyle {
     static let incompleteCheckbox = Color(.tertiaryLabel)
 }
 
-struct ContentView: View {
+struct HabitListView: View {
     @State private var viewModel = HabitListViewModel()
 
     var body: some View {
@@ -47,5 +47,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HabitListView()
 }

@@ -51,5 +51,15 @@ struct DailyHabitTrackerTests {
 
         #expect(viewModel.habits[0].isCompleted == true)
     }
+    
+    @Test func toggleCompletionTwiceReturnsToIncomplete() {
+        let habit = Habit(name: "Read")
+        let viewModel = HabitListViewModel(habits: [habit])
+
+        viewModel.toggleCompletion(for: habit)
+        viewModel.toggleCompletion(for: habit)
+
+        #expect(viewModel.habits[0].isCompleted == false)
+    }
 
 }

@@ -32,6 +32,16 @@ struct DailyHabitTrackerTests {
 
         #expect(viewModel.habits.isEmpty)
     }
+    
+    @Test func addsHabitMultipleTimes() {
+        let viewModel = HabitListViewModel(habits: [])
+
+        viewModel.addHabit(named: "One")
+        viewModel.addHabit(named: "Two")
+        viewModel.addHabit(named: "Three")
+
+        #expect(viewModel.habits.map(\.name) == ["One", "Two", "Three"])
+    }
 
     @Test func toggleCompletionUpdatesMatchingHabit() {
         let habit = Habit(name: "Read")

@@ -12,7 +12,4 @@ struct Habit: Identifiable {
     let name: String
 }
 
-nonisolated struct HabitCompletion: Equatable {
-    let habitID: Habit.ID
-    let date: Date
-}
+

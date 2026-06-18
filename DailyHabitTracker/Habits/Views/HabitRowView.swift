@@ -46,3 +46,16 @@ struct HabitRowView<Destination: View>: View {
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        HabitRowView(
+            name: "Read",
+            isCompleted: false,
+            toggleCompletion: {},
+            destination: {
+                Text("Habit details")
+            }
+        )
+    }
+}

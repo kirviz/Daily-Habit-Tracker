@@ -20,6 +20,22 @@ struct DailyHabitTrackerTests {
         #expect(viewModel.isShowingAddHabit == false)
     }
 
+    @MainActor
+    @Test func loadsAndSavesHabitsAndCompletionsThroughRepository() {
+        let repository = InMemoryHabitRepository(habits: [])
+        let viewModel = HabitListViewModel(repository: repository, today: { fixedToday })
+
+        viewModel.addHabit(named: "Read")
+        let habit = viewModel.habits[0]
+        viewModel.toggleTodayCompletion(for: habit)
+
+        let reloadedViewModel = HabitListViewModel(repository: repository, today: { fixedToday })
+
+        #expect(reloadedViewModel.habits.map(\.name) == ["Read"])
+        #expect(reloadedViewModel.completions.map(\.habitID) == [habit.id])
+        #expect(reloadedViewModel.isCompletedToday(habit))
+    }
+
     @Test func addHabitAppendsTrimmedName() {
         let viewModel = HabitListViewModel(habits: [])
 

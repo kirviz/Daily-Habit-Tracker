@@ -14,19 +14,33 @@ final class HabitListViewModel {
     var completions: [HabitCompletion]
     var isShowingAddHabit = false
 
+    private let repository: HabitRepository
     private let calendar: Calendar
     private let today: () -> Date
 
     init(
-        habits: [Habit] = HabitListViewModel.defaultHabits,
+        repository: HabitRepository = InMemoryHabitRepository(),
+        calendar: Calendar = .current,
+        today: @escaping () -> Date = Date.init
+    ) {
+        self.repository = repository
+        self.habits = repository.loadHabits()
+        self.completions = repository.loadCompletions()
+        self.calendar = calendar
+        self.today = today
+    }
+
+    convenience init(
+        habits: [Habit],
         completions: [HabitCompletion] = [],
         calendar: Calendar = .current,
         today: @escaping () -> Date = Date.init
     ) {
-        self.habits = habits
-        self.completions = completions
-        self.calendar = calendar
-        self.today = today
+        self.init(
+            repository: InMemoryHabitRepository(habits: habits, completions: completions),
+            calendar: calendar,
+            today: today
+        )
     }
 
     func addHabit(named name: String) {
@@ -34,6 +48,7 @@ final class HabitListViewModel {
         guard !trimmedName.isEmpty else { return }
 
         habits.append(Habit(name: trimmedName))
+        repository.saveHabits(habits)
     }
 
     func deleteHabits(at offsets: IndexSet) {
@@ -43,6 +58,8 @@ final class HabitListViewModel {
 
         habits.removeAll { deletedHabitIDs.contains($0.id) }
         completions.removeAll { deletedHabitIDs.contains($0.habitID) }
+        repository.saveHabits(habits)
+        repository.saveCompletions(completions)
     }
 
     func isCompletedToday(_ habit: Habit) -> Bool {
@@ -78,11 +95,7 @@ final class HabitListViewModel {
         } else {
             completions.append(HabitCompletion(habitID: habit.id, date: date))
         }
-    }
 
-    private static let defaultHabits = [
-        Habit(name: "Walk"),
-        Habit(name: "Meditation"),
-        Habit(name: "Gym")
-    ]
+        repository.saveCompletions(completions)
+    }
 }

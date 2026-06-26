@@ -13,6 +13,7 @@ final class DailyHabitTrackerUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
+        app.launchArguments = ["--use-in-memory-repository"]
         app.launch()
     }
 

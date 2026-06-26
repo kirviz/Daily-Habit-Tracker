@@ -14,7 +14,11 @@ enum AppStyle {
 }
 
 struct HabitListView: View {
-    @State private var viewModel = HabitListViewModel()
+    @State private var viewModel: HabitListViewModel
+
+    init(repository: HabitRepository = InMemoryHabitRepository()) {
+        _viewModel = State(initialValue: HabitListViewModel(repository: repository))
+    }
 
     var body: some View {
         NavigationStack {

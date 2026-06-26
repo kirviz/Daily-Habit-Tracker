@@ -13,24 +13,12 @@ struct DailyHabitTrackerApp: App {
     private let startupError: Error?
 
     init() {
-        do {
-            if ProcessInfo.processInfo.arguments.contains("--use-in-memory-repository") {
-                let inMemoryRepository = InMemoryHabitRepository()
-                try HabitSeeder(repository: inMemoryRepository).seedDefaultHabitsIfNeeded()
-                repository = inMemoryRepository
-                startupError = nil
-            } else {
-                let swiftDataRepository = try SwiftDataHabitRepository()
-                try HabitSeeder(repository: swiftDataRepository).seedDefaultHabitsIfNeeded()
-                repository = swiftDataRepository
-                startupError = nil
-            }
-        } catch {
-            let fallbackRepository = InMemoryHabitRepository()
-            try? HabitSeeder(repository: fallbackRepository).seedDefaultHabitsIfNeeded()
-            repository = fallbackRepository
-            startupError = error
-        }
+        let bootstrapResult = HabitRepositoryBootstrap.makeRepository(
+            useInMemoryRepository: ProcessInfo.processInfo.arguments.contains("--use-in-memory-repository")
+        )
+
+        repository = bootstrapResult.repository
+        startupError = bootstrapResult.startupError
     }
 
     var body: some Scene {

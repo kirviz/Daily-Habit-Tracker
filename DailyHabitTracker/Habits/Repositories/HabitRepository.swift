@@ -8,8 +8,8 @@
 import Foundation
 
 protocol HabitRepository {
-    func loadHabits() -> [Habit]
-    func saveHabits(_ habits: [Habit])
-    func loadCompletions() -> [HabitCompletion]
-    func saveCompletions(_ completions: [HabitCompletion])
+    func loadHabits() throws -> [Habit]
+    func saveHabits(_ habits: [Habit]) throws
+    func loadCompletions() throws -> [HabitCompletion]
+    func saveCompletions(_ completions: [HabitCompletion]) throws
 }

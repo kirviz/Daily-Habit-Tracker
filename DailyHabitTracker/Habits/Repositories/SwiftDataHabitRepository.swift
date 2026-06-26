@@ -18,23 +18,14 @@ final class SwiftDataHabitRepository: HabitRepository {
             SwiftDataHabitCompletion.self
         )
         self.context = container.mainContext
-
-        if try fetchHabits().isEmpty {
-            saveHabits(Self.defaultHabits)
-        }
     }
 
-    func loadHabits() -> [Habit] {
-        do {
-            return try fetchHabits()
-        } catch {
-            print("Failed to load habits: \(error)")
-            return []
-        }
+    func loadHabits() throws -> [Habit] {
+        try fetchHabits()
     }
 
-    func saveHabits(_ habits: [Habit]) {
-        replaceAll(SwiftDataHabit.self) {
+    func saveHabits(_ habits: [Habit]) throws {
+        try replaceAll(SwiftDataHabit.self) {
             habits.enumerated().map { index, habit in
                 SwiftDataHabit(
                     id: habit.id,
@@ -45,7 +36,7 @@ final class SwiftDataHabitRepository: HabitRepository {
         }
     }
 
-    func loadCompletions() -> [HabitCompletion] {
+    func loadCompletions() throws -> [HabitCompletion] {
         let descriptor = FetchDescriptor<SwiftDataHabitCompletion>(
             sortBy: [
                 SortDescriptor(\.date),
@@ -53,16 +44,11 @@ final class SwiftDataHabitRepository: HabitRepository {
             ]
         )
 
-        do {
-            return try context.fetch(descriptor).map(\.habitCompletion)
-        } catch {
-            print("Failed to load habit completions: \(error)")
-            return []
-        }
+        return try context.fetch(descriptor).map(\.habitCompletion)
     }
 
-    func saveCompletions(_ completions: [HabitCompletion]) {
-        replaceAll(SwiftDataHabitCompletion.self) {
+    func saveCompletions(_ completions: [HabitCompletion]) throws {
+        try replaceAll(SwiftDataHabitCompletion.self) {
             completions.map { completion in
                 SwiftDataHabitCompletion(
                     habitID: completion.habitID,
@@ -75,14 +61,10 @@ final class SwiftDataHabitRepository: HabitRepository {
     private func replaceAll<Model: PersistentModel>(
         _ modelType: Model.Type,
         with models: () -> [Model]
-    ) {
-        do {
-            try context.fetch(FetchDescriptor<Model>()).forEach(context.delete)
-            models().forEach(context.insert)
-            try context.save()
-        } catch {
-            print("Failed to save \(modelType): \(error)")
-        }
+    ) throws {
+        try context.fetch(FetchDescriptor<Model>()).forEach(context.delete)
+        models().forEach(context.insert)
+        try context.save()
     }
 
     private func fetchHabits() throws -> [Habit] {
@@ -92,12 +74,6 @@ final class SwiftDataHabitRepository: HabitRepository {
 
         return try context.fetch(descriptor).map(\.habit)
     }
-
-    private static let defaultHabits = [
-        Habit(name: "Walk"),
-        Habit(name: "Meditation"),
-        Habit(name: "Gym")
-    ]
 }
 
 @Model

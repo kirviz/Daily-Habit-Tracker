@@ -13,6 +13,7 @@ final class HabitListViewModel {
     var habits: [Habit]
     var completions: [HabitCompletion]
     var isShowingAddHabit = false
+    var persistenceError: Error?
 
     private let repository: HabitRepository
     private let calendar: Calendar
@@ -24,8 +25,14 @@ final class HabitListViewModel {
         today: @escaping () -> Date = Date.init
     ) {
         self.repository = repository
-        self.habits = repository.loadHabits()
-        self.completions = repository.loadCompletions()
+        do {
+            self.habits = try repository.loadHabits()
+            self.completions = try repository.loadCompletions()
+        } catch {
+            self.habits = []
+            self.completions = []
+            self.persistenceError = error
+        }
         self.calendar = calendar
         self.today = today
     }
@@ -48,18 +55,33 @@ final class HabitListViewModel {
         guard !trimmedName.isEmpty else { return }
 
         habits.append(Habit(name: trimmedName))
-        repository.saveHabits(habits)
+        do {
+            try repository.saveHabits(habits)
+            persistenceError = nil
+        } catch {
+            habits.removeLast()
+            persistenceError = error
+        }
     }
 
     func deleteHabits(at offsets: IndexSet) {
+        let previousHabits = habits
+        let previousCompletions = completions
         let deletedHabitIDs = Set(offsets.compactMap { index in
             habits.indices.contains(index) ? habits[index].id : nil
         })
 
         habits.removeAll { deletedHabitIDs.contains($0.id) }
         completions.removeAll { deletedHabitIDs.contains($0.habitID) }
-        repository.saveHabits(habits)
-        repository.saveCompletions(completions)
+        do {
+            try repository.saveHabits(habits)
+            try repository.saveCompletions(completions)
+            persistenceError = nil
+        } catch {
+            habits = previousHabits
+            completions = previousCompletions
+            persistenceError = error
+        }
     }
 
     func isCompletedToday(_ habit: Habit) -> Bool {
@@ -88,6 +110,7 @@ final class HabitListViewModel {
     func toggleCompletion(for habit: Habit, on date: Date) {
         guard habits.contains(where: { $0.id == habit.id }) else { return }
 
+        let previousCompletions = completions
         if let completionIndex = completions.firstIndex(where: { completion in
             completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: date)
         }) {
@@ -96,6 +119,12 @@ final class HabitListViewModel {
             completions.append(HabitCompletion(habitID: habit.id, date: date))
         }
 
-        repository.saveCompletions(completions)
+        do {
+            try repository.saveCompletions(completions)
+            persistenceError = nil
+        } catch {
+            completions = previousCompletions
+            persistenceError = error
+        }
     }
 }

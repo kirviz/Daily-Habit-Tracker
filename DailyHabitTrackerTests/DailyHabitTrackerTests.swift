@@ -12,8 +12,10 @@ import Testing
 struct DailyHabitTrackerTests {
     private let fixedToday = Date(timeIntervalSince1970: 1_781_827_200)
 
-    @Test func initializesWithDefaultHabits() {
-        let viewModel = HabitListViewModel()
+    @Test func initializesWithDefaultHabits() throws {
+        let repository = InMemoryHabitRepository()
+        try HabitSeeder(repository: repository).seedDefaultHabitsIfNeeded()
+        let viewModel = HabitListViewModel(repository: repository)
 
         #expect(viewModel.habits.map(\.name) == ["Walk", "Meditation", "Gym"])
         #expect(viewModel.completions.isEmpty)

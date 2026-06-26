@@ -7,37 +7,31 @@
 
 import Foundation
 
-final class InMemoryHabitRepository: HabitRepository {
+nonisolated final class InMemoryHabitRepository: HabitRepository {
     private var habits: [Habit]
     private var completions: [HabitCompletion]
 
     init(
-        habits: [Habit] = InMemoryHabitRepository.defaultHabits,
+        habits: [Habit] = [],
         completions: [HabitCompletion] = []
     ) {
         self.habits = habits
         self.completions = completions
     }
 
-    func loadHabits() -> [Habit] {
+    func loadHabits() throws -> [Habit] {
         habits
     }
 
-    func saveHabits(_ habits: [Habit]) {
+    func saveHabits(_ habits: [Habit]) throws {
         self.habits = habits
     }
 
-    func loadCompletions() -> [HabitCompletion] {
+    func loadCompletions() throws -> [HabitCompletion] {
         completions
     }
 
-    func saveCompletions(_ completions: [HabitCompletion]) {
+    func saveCompletions(_ completions: [HabitCompletion]) throws {
         self.completions = completions
     }
-
-    private static let defaultHabits = [
-        Habit(name: "Walk"),
-        Habit(name: "Meditation"),
-        Habit(name: "Gym")
-    ]
 }

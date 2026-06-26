@@ -52,6 +52,21 @@ struct HabitListView: View {
                     viewModel.addHabit(named: habitName)
                 }
             }
+            .alert(
+                "Unable to Update Habits",
+                isPresented: Binding(
+                    get: { viewModel.persistenceError != nil },
+                    set: { isPresented in
+                        if !isPresented {
+                            viewModel.persistenceError = nil
+                        }
+                    }
+                )
+            ) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(viewModel.persistenceError?.localizedDescription ?? "Try again later.")
+            }
         }
     }
 }

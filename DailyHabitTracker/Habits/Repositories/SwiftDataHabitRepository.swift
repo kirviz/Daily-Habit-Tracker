@@ -9,29 +9,26 @@ import Foundation
 import SwiftData
 
 final class SwiftDataHabitRepository: HabitRepository {
+    private let container: ModelContainer
     private let context: ModelContext
 
     init() throws {
-        let container = try ModelContainer(
+        self.container = try ModelContainer(
             for: SwiftDataHabit.self,
             SwiftDataHabitCompletion.self
         )
         self.context = container.mainContext
 
-        if loadHabits().isEmpty {
+        if try fetchHabits().isEmpty {
             saveHabits(Self.defaultHabits)
         }
     }
 
     func loadHabits() -> [Habit] {
-        let descriptor = FetchDescriptor<SwiftDataHabit>(
-            sortBy: [SortDescriptor(\.createdAt)]
-        )
-
         do {
-            return try context.fetch(descriptor).map(\.habit)
+            return try fetchHabits()
         } catch {
-            assertionFailure("Failed to load habits: \(error)")
+            print("Failed to load habits: \(error)")
             return []
         }
     }
@@ -59,7 +56,7 @@ final class SwiftDataHabitRepository: HabitRepository {
         do {
             return try context.fetch(descriptor).map(\.habitCompletion)
         } catch {
-            assertionFailure("Failed to load habit completions: \(error)")
+            print("Failed to load habit completions: \(error)")
             return []
         }
     }
@@ -84,8 +81,16 @@ final class SwiftDataHabitRepository: HabitRepository {
             models().forEach(context.insert)
             try context.save()
         } catch {
-            assertionFailure("Failed to save \(modelType): \(error)")
+            print("Failed to save \(modelType): \(error)")
         }
+    }
+
+    private func fetchHabits() throws -> [Habit] {
+        let descriptor = FetchDescriptor<SwiftDataHabit>(
+            sortBy: [SortDescriptor(\.createdAt)]
+        )
+
+        return try context.fetch(descriptor).map(\.habit)
     }
 
     private static let defaultHabits = [
@@ -96,7 +101,7 @@ final class SwiftDataHabitRepository: HabitRepository {
 }
 
 @Model
-private final class SwiftDataHabit {
+final class SwiftDataHabit {
     var id: UUID
     var name: String
     var createdAt: Date
@@ -113,7 +118,7 @@ private final class SwiftDataHabit {
 }
 
 @Model
-private final class SwiftDataHabitCompletion {
+final class SwiftDataHabitCompletion {
     var habitID: UUID
     var date: Date
 

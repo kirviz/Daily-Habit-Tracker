@@ -9,7 +9,9 @@ import Foundation
 
 protocol HabitRepository {
     func loadHabits() throws -> [Habit]
-    func saveHabits(_ habits: [Habit]) throws
+    func addHabit(_ habit: Habit) throws
+    func deleteHabit(id: Habit.ID) throws
     func loadCompletions() throws -> [HabitCompletion]
-    func saveCompletions(_ completions: [HabitCompletion]) throws
+    func addCompletion(_ completion: HabitCompletion) throws
+    func deleteCompletion(habitID: Habit.ID, on date: Date, calendar: Calendar) throws
 }

@@ -17,10 +17,12 @@ struct HabitSeeder {
     func seedDefaultHabitsIfNeeded() throws {
         guard try repository.loadHabits().isEmpty else { return }
 
-        try repository.saveHabits([
+        for habit in [
             Habit(name: "Walk"),
             Habit(name: "Meditation"),
             Habit(name: "Gym")
-        ])
+        ] {
+            try repository.addHabit(habit)
+        }
     }
 }

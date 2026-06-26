@@ -24,16 +24,21 @@ final class SwiftDataHabitRepository: HabitRepository {
         try fetchHabits()
     }
 
-    func saveHabits(_ habits: [Habit]) throws {
-        try replaceAll(SwiftDataHabit.self) {
-            habits.enumerated().map { index, habit in
-                SwiftDataHabit(
-                    id: habit.id,
-                    name: habit.name,
-                    createdAt: Date(timeIntervalSinceReferenceDate: TimeInterval(index))
-                )
-            }
+    func addHabit(_ habit: Habit) throws {
+        context.insert(SwiftDataHabit(id: habit.id, name: habit.name, createdAt: Date()))
+        try context.save()
+    }
+
+    func deleteHabit(id: Habit.ID) throws {
+        for habit in try fetchSwiftDataHabits(id: id) {
+            context.delete(habit)
         }
+
+        for completion in try fetchSwiftDataCompletions(habitID: id) {
+            context.delete(completion)
+        }
+
+        try context.save()
     }
 
     func loadCompletions() throws -> [HabitCompletion] {
@@ -47,23 +52,16 @@ final class SwiftDataHabitRepository: HabitRepository {
         return try context.fetch(descriptor).map(\.habitCompletion)
     }
 
-    func saveCompletions(_ completions: [HabitCompletion]) throws {
-        try replaceAll(SwiftDataHabitCompletion.self) {
-            completions.map { completion in
-                SwiftDataHabitCompletion(
-                    habitID: completion.habitID,
-                    date: completion.date
-                )
-            }
-        }
+    func addCompletion(_ completion: HabitCompletion) throws {
+        context.insert(SwiftDataHabitCompletion(habitID: completion.habitID, date: completion.date))
+        try context.save()
     }
 
-    private func replaceAll<Model: PersistentModel>(
-        _ modelType: Model.Type,
-        with models: () -> [Model]
-    ) throws {
-        try context.fetch(FetchDescriptor<Model>()).forEach(context.delete)
-        models().forEach(context.insert)
+    func deleteCompletion(habitID: Habit.ID, on date: Date, calendar: Calendar) throws {
+        for completion in try fetchSwiftDataCompletions(habitID: habitID) where calendar.isDate(completion.date, inSameDayAs: date) {
+            context.delete(completion)
+        }
+
         try context.save()
     }
 
@@ -73,6 +71,26 @@ final class SwiftDataHabitRepository: HabitRepository {
         )
 
         return try context.fetch(descriptor).map(\.habit)
+    }
+
+    private func fetchSwiftDataHabits(id: Habit.ID) throws -> [SwiftDataHabit] {
+        let descriptor = FetchDescriptor<SwiftDataHabit>(
+            predicate: #Predicate { habit in
+                habit.id == id
+            }
+        )
+
+        return try context.fetch(descriptor)
+    }
+
+    private func fetchSwiftDataCompletions(habitID: Habit.ID) throws -> [SwiftDataHabitCompletion] {
+        let descriptor = FetchDescriptor<SwiftDataHabitCompletion>(
+            predicate: #Predicate { completion in
+                completion.habitID == habitID
+            }
+        )
+
+        return try context.fetch(descriptor)
     }
 }
 

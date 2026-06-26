@@ -23,15 +23,26 @@ final class InMemoryHabitRepository: HabitRepository {
         habits
     }
 
-    func saveHabits(_ habits: [Habit]) throws {
-        self.habits = habits
+    func addHabit(_ habit: Habit) throws {
+        habits.append(habit)
+    }
+
+    func deleteHabit(id: Habit.ID) throws {
+        habits.removeAll { $0.id == id }
+        completions.removeAll { $0.habitID == id }
     }
 
     func loadCompletions() throws -> [HabitCompletion] {
         completions
     }
 
-    func saveCompletions(_ completions: [HabitCompletion]) throws {
-        self.completions = completions
+    func addCompletion(_ completion: HabitCompletion) throws {
+        completions.append(completion)
+    }
+
+    func deleteCompletion(habitID: Habit.ID, on date: Date, calendar: Calendar) throws {
+        completions.removeAll { completion in
+            completion.habitID == habitID && calendar.isDate(completion.date, inSameDayAs: date)
+        }
     }
 }

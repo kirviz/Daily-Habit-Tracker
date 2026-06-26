@@ -54,33 +54,30 @@ final class HabitListViewModel {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
 
-        habits.append(Habit(name: trimmedName))
+        let habit = Habit(name: trimmedName)
         do {
-            try repository.saveHabits(habits)
+            try repository.addHabit(habit)
+            habits.append(habit)
             persistenceError = nil
         } catch {
-            habits.removeLast()
-            persistenceError = error
+            handlePersistenceFailure(error)
         }
     }
 
     func deleteHabits(at offsets: IndexSet) {
-        let previousHabits = habits
-        let previousCompletions = completions
         let deletedHabitIDs = Set(offsets.compactMap { index in
             habits.indices.contains(index) ? habits[index].id : nil
         })
 
-        habits.removeAll { deletedHabitIDs.contains($0.id) }
-        completions.removeAll { deletedHabitIDs.contains($0.habitID) }
         do {
-            try repository.saveHabits(habits)
-            try repository.saveCompletions(completions)
+            for habitID in deletedHabitIDs {
+                try repository.deleteHabit(id: habitID)
+            }
+            habits.removeAll { deletedHabitIDs.contains($0.id) }
+            completions.removeAll { deletedHabitIDs.contains($0.habitID) }
             persistenceError = nil
         } catch {
-            habits = previousHabits
-            completions = previousCompletions
-            persistenceError = error
+            handlePersistenceFailure(error)
         }
     }
 
@@ -110,21 +107,36 @@ final class HabitListViewModel {
     func toggleCompletion(for habit: Habit, on date: Date) {
         guard habits.contains(where: { $0.id == habit.id }) else { return }
 
-        let previousCompletions = completions
         if let completionIndex = completions.firstIndex(where: { completion in
             completion.habitID == habit.id && calendar.isDate(completion.date, inSameDayAs: date)
         }) {
-            completions.remove(at: completionIndex)
+            do {
+                try repository.deleteCompletion(habitID: habit.id, on: date, calendar: calendar)
+                completions.remove(at: completionIndex)
+                persistenceError = nil
+            } catch {
+                handlePersistenceFailure(error)
+            }
         } else {
-            completions.append(HabitCompletion(habitID: habit.id, date: date))
+            let completion = HabitCompletion(habitID: habit.id, date: date)
+            do {
+                try repository.addCompletion(completion)
+                completions.append(completion)
+                persistenceError = nil
+            } catch {
+                handlePersistenceFailure(error)
+            }
+        }
+    }
+
+    private func handlePersistenceFailure(_ error: Error) {
+        do {
+            habits = try repository.loadHabits()
+            completions = try repository.loadCompletions()
+        } catch {
+            // Keep the current in-memory state if recovery loading also fails.
         }
 
-        do {
-            try repository.saveCompletions(completions)
-            persistenceError = nil
-        } catch {
-            completions = previousCompletions
-            persistenceError = error
-        }
+        persistenceError = error
     }
 }

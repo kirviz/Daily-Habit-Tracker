@@ -16,8 +16,10 @@ enum AppStyle {
 struct HabitListView: View {
     @State private var viewModel: HabitListViewModel
 
-    init(repository: HabitRepository = InMemoryHabitRepository()) {
-        _viewModel = State(initialValue: HabitListViewModel(repository: repository))
+    init(repository: HabitRepository = InMemoryHabitRepository(), startupError: Error? = nil) {
+        let viewModel = HabitListViewModel(repository: repository)
+        viewModel.persistenceError = startupError
+        _viewModel = State(initialValue: viewModel)
     }
 
     var body: some View {

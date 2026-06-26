@@ -7,7 +7,7 @@
 
 import Foundation
 
-nonisolated final class InMemoryHabitRepository: HabitRepository {
+final class InMemoryHabitRepository: HabitRepository {
     private var habits: [Habit]
     private var completions: [HabitCompletion]
 

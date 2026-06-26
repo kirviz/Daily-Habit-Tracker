@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct DailyHabitTrackerApp: App {
     private let repository: HabitRepository
+    private let startupError: Error?
 
     init() {
         do {
@@ -17,19 +18,24 @@ struct DailyHabitTrackerApp: App {
                 let inMemoryRepository = InMemoryHabitRepository()
                 try HabitSeeder(repository: inMemoryRepository).seedDefaultHabitsIfNeeded()
                 repository = inMemoryRepository
+                startupError = nil
             } else {
                 let swiftDataRepository = try SwiftDataHabitRepository()
                 try HabitSeeder(repository: swiftDataRepository).seedDefaultHabitsIfNeeded()
                 repository = swiftDataRepository
+                startupError = nil
             }
         } catch {
-            fatalError("Failed to prepare habit repository: \(error)")
+            let fallbackRepository = InMemoryHabitRepository()
+            try? HabitSeeder(repository: fallbackRepository).seedDefaultHabitsIfNeeded()
+            repository = fallbackRepository
+            startupError = error
         }
     }
 
     var body: some Scene {
         WindowGroup {
-            HabitListView(repository: repository)
+            HabitListView(repository: repository, startupError: startupError)
         }
     }
 }

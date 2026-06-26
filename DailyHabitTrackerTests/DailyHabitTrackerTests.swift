@@ -9,6 +9,7 @@ import Foundation
 import Testing
 @testable import DailyHabitTracker
 
+@MainActor
 struct DailyHabitTrackerTests {
     private let fixedToday = Date(timeIntervalSince1970: 1_781_827_200)
 
@@ -22,7 +23,6 @@ struct DailyHabitTrackerTests {
         #expect(viewModel.isShowingAddHabit == false)
     }
 
-    @MainActor
     @Test func loadsAndSavesHabitsAndCompletionsThroughRepository() {
         let repository = InMemoryHabitRepository(habits: [])
         let viewModel = HabitListViewModel(repository: repository, today: { fixedToday })

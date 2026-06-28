@@ -12,12 +12,27 @@ final class SwiftDataHabitRepository: HabitRepository {
     private let container: ModelContainer
     private let context: ModelContext
 
-    init() throws {
-        self.container = try ModelContainer(
+    convenience init() throws {
+        let container = try ModelContainer(
             for: SwiftDataHabit.self,
             SwiftDataHabitCompletion.self
         )
+        self.init(container: container)
+    }
+
+    init(container: ModelContainer) {
+        self.container = container
         self.context = container.mainContext
+    }
+
+    static func makeInMemoryContainer() throws -> ModelContainer {
+        let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+
+        return try ModelContainer(
+            for: SwiftDataHabit.self,
+            SwiftDataHabitCompletion.self,
+            configurations: configuration
+        )
     }
 
     func loadHabits() throws -> [Habit] {
